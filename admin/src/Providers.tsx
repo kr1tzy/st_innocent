@@ -8,11 +8,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 //
 export const httpClient = async (url: string, options: any = {}) => {
   if (!options.headers) {
-    options.headers = {};
-  }
-
-  if (!options.headers["Content-Type"]) {
-    options.headers["Content-Type"] = "application/json";
+    options.headers = { "Content-Type": "application/json" };
   }
 
   options.headers["Accept"] = "application/json";
@@ -138,6 +134,7 @@ export const dataProvider = {
     return httpClient(url, {
       method: "POST",
       body: formData,
+      headers: {},
     }).then((res) => res.json);
   },
   getAnalytics: async () => {
@@ -174,13 +171,13 @@ export const authProvider = {
     const url = `${BASE_URL}/token`;
     const options = {
       method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
       body: [
         encodeURIComponent("username") + "=" + encodeURIComponent(username),
         encodeURIComponent("password") + "=" + encodeURIComponent(password),
       ].join("&"),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
     };
     return httpClient(url, options)
       .then(({ json }) => {
