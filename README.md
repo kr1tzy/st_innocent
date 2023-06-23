@@ -23,6 +23,7 @@ FastAPI application using async libraries with MongoDB, Pushover notifications, 
 ## Production
 
 * pull the newest changes from github and update .env if necessary
+    * install the client packages with `yarn` (needed for pm2)
 * restart the api
     * `systemctl restart api`
 * build the client/admin apps and scp them over
