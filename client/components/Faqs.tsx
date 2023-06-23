@@ -87,7 +87,7 @@ function FaqBox(props: FAQ) {
             sx={{
               mt: 2,
               fontSize: "1.2rem",
-              height: isMobile ? 400 : 200,
+              height: isMobile ? 300 : 200,
               overflowY: "scroll",
             }}
           >
