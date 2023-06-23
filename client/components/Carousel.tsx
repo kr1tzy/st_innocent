@@ -21,7 +21,7 @@ interface CarouselItemProps {
   image: string;
   text: string;
   desktopImageSide: string;
-  backgroundColor: PaletteColor;
+  backgroundColor: string;
   titleColor: string;
 }
 
@@ -63,19 +63,13 @@ function CarouselItem(props: CarouselItemProps) {
             }}
           >
             {isMobile && (
-              <CardMedia
-                alt={props.image}
-                sx={{
-                  objectFit: "fill",
-                }}
-              >
+              <CardMedia component="img" alt={props.image}>
                 <img height="225px" width="100%" src={imageUrl(props.image)} />
               </CardMedia>
             )}
             <CardContent
               sx={{
                 flex: "1 0 auto",
-                paddingBottom: "20px",
               }}
             >
               <Typography component="div" variant="h5" color={props.titleColor}>
@@ -118,7 +112,7 @@ interface CarouselProps {
   items: Array<PLItem | WWAItem>;
   desktopImageSide: string;
   mobileNavBtnColor: string;
-  backgroundColor: PaletteColor;
+  backgroundColor: string;
   titleColor: string;
 }
 

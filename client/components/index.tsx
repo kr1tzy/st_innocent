@@ -1,5 +1,5 @@
 // Generic
-import Carousel, { CarouselProps } from "./Carousel";
+import Carousel from "./Carousel";
 
 // Index page
 import Navbar from "./Navbar";
