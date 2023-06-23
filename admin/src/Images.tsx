@@ -1,9 +1,10 @@
 // @ts-nocheck
 import React, { useState } from "react";
 import {
+  List,
   Show,
   Edit,
-  Button as RAButton,
+  Button,
   Datagrid,
   TextField,
   ImageField,
@@ -15,11 +16,9 @@ import {
   ShowButton,
   useRefresh,
   useNotify,
-  ListContextProvider,
-  ListView,
-  useResourceContext,
-  useInfiniteGetList,
-  useRecordSelection,
+  InfiniteList,
+  useListContext,
+  InfinitePagination,
 } from "react-admin";
 import {
   useMediaQuery,
@@ -43,14 +42,14 @@ export const ImageList = (props: any) => {
   const notify = useNotify();
 
   const UploadButton = () => (
-    <RAButton
+    <Button
       onClick={() => {
         handleOpen();
       }}
       label="Upload"
     >
       <UploadIcon />
-    </RAButton>
+    </Button>
   );
 
   const Empty = () => (
@@ -73,86 +72,33 @@ export const ImageList = (props: any) => {
     </Box>
   );
 
-  const defaultListContextProps = {
-    setFilters: () => {},
-    setPage: () => {},
-    setPerPage: () => {},
-    showFilter: () => {},
-    hideFilter: () => {},
-    displayedFilters: false,
-    filterValues: {},
-    total: null,
-    page: 1,
-    perPage: 10,
-    hasPreviousPage: false,
-  };
-
-  const InfiniteList = ({
-    children,
-    ...props
-  }: {
-    children: any;
-    props: any;
-  }) => {
-    const resource = useResourceContext();
-    const [sort, setSort] = React.useState({ field: "name", order: "ASC" });
-    const [selectedIds, { toggle, select, clearSelection }] =
-      useRecordSelection(resource);
-
-    const { data, isFetching, isLoading, refetch, hasNextPage } =
-      useInfiniteGetList(resource, { sort });
-
-    const flattenedData = React.useMemo(
-      () => data?.pages.map((page) => page.data).flat(),
-      [data]
-    );
-
-    let total = 0;
-    if (flattenedData) {
-      total = flattenedData.length;
-    }
-
+  const CustomPagination = () => {
+    const { total } = useListContext();
     return (
-      <ListContextProvider
-        value={{
-          ...defaultListContextProps,
-          sort,
-          setSort,
-          selectedIds,
-          onSelect: select,
-          onToggleItem: toggle,
-          onUnselectItems: clearSelection,
-          data: flattenedData,
-          isFetching,
-          isLoading,
-          refetch,
-          resource,
-          hasNextPage,
-        }}
-      >
-        <ListView {...props} pagination={false}>
-          {children}
-        </ListView>
-        <Box position="sticky" bottom={0} textAlign="center">
-          <Card
-            elevation={2}
-            sx={{
-              px: 2,
-              py: 1,
-              mb: 1,
-              display: "inline-block",
-              marginTop: isMobile ? "2.5%" : "1%",
-              backgroundColor: theme.palette.primary.main,
-            }}
-          >
-            <Typography variant="body2">{total} images</Typography>
-          </Card>
-        </Box>
-      </ListContextProvider>
+      <>
+        <InfinitePagination />
+        {total > 0 && (
+          <Box position="sticky" bottom={0} textAlign="center">
+            <Card
+              elevation={2}
+              sx={{
+                px: 2,
+                py: 1,
+                mb: 1,
+                display: "inline-block",
+                backgroundColor: theme.palette.primary.main,
+                color: "#fff",
+              }}
+            >
+              <Typography variant="body2">{total} images</Typography>
+            </Card>
+          </Box>
+        )}
+      </>
     );
   };
 
-  const ImageTable = () => {
+  const ResponsiveImageList = () => {
     if (isMobile) {
       // Phone
       return (
@@ -160,11 +106,13 @@ export const ImageList = (props: any) => {
           title="Images"
           empty={<Empty />}
           actions={<UploadButton />}
+          pagination={<CustomPagination />}
         >
-          <Datagrid>
+          <Datagrid rowClick="edit">
+            <TextField source="size" label="Size" sortable={true} />
             <ImageField source="admin_url" label="Image" sortable={false} />
-            <EditButton />
           </Datagrid>
+          <InfinitePagination />
         </InfiniteList>
       );
     } else if (isTablet) {
@@ -174,23 +122,19 @@ export const ImageList = (props: any) => {
           title="Images"
           empty={<Empty />}
           actions={<UploadButton />}
+          pagination={<CustomPagination />}
         >
-          <Datagrid>
+          <Datagrid rowClick="edit">
             <TextField source="name" />
             <TextField source="size" />
             <ImageField source="admin_url" label="Image" sortable={false} />
-            <EditButton />
           </Datagrid>
         </InfiniteList>
       );
     } else {
       // Desktop
       return (
-        <InfiniteList
-          title="Images"
-          empty={<Empty />}
-          actions={<UploadButton />}
-        >
+        <List title="Images" empty={<Empty />} actions={<UploadButton />}>
           <Datagrid>
             <TextField source="id" sortable={false} label="id" />
             <TextField source="name" />
@@ -200,14 +144,14 @@ export const ImageList = (props: any) => {
             <EditButton />
             <ShowButton />
           </Datagrid>
-        </InfiniteList>
+        </List>
       );
     }
   };
 
   return (
     <React.Fragment>
-      <ImageTable />
+      <ResponsiveImageList />
       <Modal open={open} onClose={handleClose}>
         <Box
           sx={{
