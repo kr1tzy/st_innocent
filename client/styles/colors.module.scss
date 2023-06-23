@@ -1,0 +1,12 @@
+// St. Innocent Theme
+$primary-main: #2a446a;
+$primary-hover: #385b8f;
+$secondary-main: #e98520;
+$secondary-hover: #c36b13;
+
+:export {
+  primaryMain: $primary-main;
+  primaryHover: $primary-hover;
+  secondaryMain: $secondary-main;
+  secondaryHover: $secondary-hover;
+}

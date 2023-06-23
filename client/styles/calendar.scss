@@ -1,0 +1,26 @@
+@import 'react-big-calendar/lib/sass/styles';
+@import 'colors.module';
+
+.rbc-show-more {
+    color: $secondary-main;
+    background-color: transparent;
+    &:hover{
+        color: #fff;
+    }
+}
+
+.rbc-event {
+    cursor: "pointer";
+    font-size: .9em;
+    background-color: $secondary-main;
+    &:hover{
+        background-color: $secondary-hover;
+    }
+}
+
+.rbc-agenda-event-cell {
+    &:hover{
+        background-color: $secondary-hover;
+    }
+
+}
