@@ -33,6 +33,7 @@ async def get_pages(
     try:
         pages = []
         page_names = await Content.distinct("page")
+        total = len(page_names)
 
         for _, page in enumerate(page_names):
             content = await Content.find_one(
@@ -49,13 +50,13 @@ async def get_pages(
 
         # get range
         beg, end = eval(_range)
-        pages = pages[beg:end]
+        pages = pages[beg : end + 1]
 
         return PageResponse(
             **{
                 "success": True,
-                "detail": f"{len(pages)} pages.",
-                "total": len(pages),
+                "detail": f"{total} total page(s), {len(pages)} pages retrieved.",
+                "total": total,
                 "data": pages,
             }
         )

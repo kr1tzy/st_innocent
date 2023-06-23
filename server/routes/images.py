@@ -36,6 +36,7 @@ async def get_images(
     """
 
     images = await File.find().to_list()  # will need modified when pdfs are added
+    total = len(images)
 
     # sort
     if _field == "name":
@@ -47,13 +48,13 @@ async def get_images(
 
     # get range
     beg, end = eval(_range)
-    images = images[beg:end]
+    images = images[beg : end + 1]
 
     return FileResponse(
         **{
             "success": True,
-            "detail": f"{len(images)} image(s).",
-            "total": len(images),
+            "detail": f"{total} total image(s), {len(images)} retrieved.",
+            "total": total,
             "data": images,
         }
     )
