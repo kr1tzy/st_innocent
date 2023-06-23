@@ -63,9 +63,15 @@ function CarouselItem(props: CarouselItemProps) {
             }}
           >
             {isMobile && (
-              <CardMedia component="img" alt={props.image}>
-                <img height="225px" width="100%" src={imageUrl(props.image)} />
-              </CardMedia>
+              <CardMedia
+                component="img"
+                src={imageUrl(props.image)}
+                alt={props.image}
+                sx={{
+                  height: "225px",
+                  width: "100%",
+                }}
+              />
             )}
             <CardContent
               sx={{
