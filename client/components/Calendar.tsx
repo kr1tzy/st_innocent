@@ -270,7 +270,7 @@ function Calendar(props: CalendarProps) {
           }
         }}
         style={{
-          height: isMobile ? 500 : isTablet ? 600 : 800,
+          height: isMobile ? 500 : isTablet ? 650 : 800,
           width: "100%",
           fontSize: isMobile ? "1em" : "1em",
           backgroundColor: theme.palette.primary.main,
