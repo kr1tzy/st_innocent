@@ -156,7 +156,11 @@ export const ImageList = (props: any) => {
     if (isMobile) {
       // Phone
       return (
-        <InfiniteList empty={<Empty />} actions={<UploadButton />}>
+        <InfiniteList
+          title="Images"
+          empty={<Empty />}
+          actions={<UploadButton />}
+        >
           <Datagrid>
             <ImageField source="admin_url" label="Image" sortable={false} />
             <EditButton />
@@ -166,7 +170,11 @@ export const ImageList = (props: any) => {
     } else if (isTablet) {
       //Tablet
       return (
-        <InfiniteList empty={<Empty />} actions={<UploadButton />}>
+        <InfiniteList
+          title="Images"
+          empty={<Empty />}
+          actions={<UploadButton />}
+        >
           <Datagrid>
             <TextField source="name" />
             <TextField source="size" />
@@ -178,7 +186,11 @@ export const ImageList = (props: any) => {
     } else {
       // Desktop
       return (
-        <InfiniteList empty={<Empty />} actions={<UploadButton />}>
+        <InfiniteList
+          title="Images"
+          empty={<Empty />}
+          actions={<UploadButton />}
+        >
           <Datagrid>
             <TextField source="id" sortable={false} label="id" />
             <TextField source="name" />
