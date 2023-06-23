@@ -72,7 +72,6 @@ export default function Dashboard() {
           Object.keys(json.data).length > 0 &&
           json.data.cities
         ) {
-          console.log(json.data);
           setAnalytics(json.data);
         }
       })
