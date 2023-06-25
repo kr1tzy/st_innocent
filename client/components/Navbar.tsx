@@ -103,7 +103,10 @@ export default function Navbar(props: NavbarProps) {
 
   return (
     <nav>
-      <AppBar position="fixed" style={{ backgroundColor: "transparent" }}>
+      <AppBar
+        position="fixed"
+        style={{ backgroundColor: "rgba(42,68,106,.5)" }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
