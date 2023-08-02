@@ -27,12 +27,15 @@ async def get_events():
 
     now = datetime.today()
     calendar_id = settings.calendar_id.replace("@", "%40")
-    # today = datetime(now.year, now.month, now.day).isoformat().replace(":", "%3A")
-    beg_year = datetime(now.year, 1, 1).isoformat().replace(":", "%3A")
+    start = (  # starts at the beginning of the previous month (unless new year)
+        datetime(now.year, now.month - 1 if now.month != 1 else now.month, 1)
+        .isoformat()
+        .replace(":", "%3A")
+    )
     url = (
         "https://www.googleapis.com"
         + f"/calendar/v3/calendars/{calendar_id}/events"
-        + f"?orderBy=startTime&singleEvents=true&timeMin={beg_year}Z"
+        + f"?orderBy=startTime&singleEvents=true&timeMin={start}Z"
         + f"&key={settings.google_api_key}"
     )
     headers = {"Accept": "application/json"}
