@@ -32,6 +32,7 @@ Vite application for updating the ui's content, managing inquiries, viewing anal
     * `yarn build # ui also builds in cloud`
     * `scp -r .next root@CLOUD_IP:/root/Playground/st_innocent/ui/`
     * `rm -rf /var/www/ui/* && cp -r /root/Playground/st_innocent/ui/.next/* /var/www/ui`
+    * `rm -rf /var/www/admin/*`
     * `scp -r build/* root@CLOUD_IP:/var/www/admin/`
 * restart the ui & nginx
     * `pm2 restart 0`
