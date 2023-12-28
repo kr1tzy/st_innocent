@@ -48,7 +48,7 @@ function CarouselItem(props: CarouselItemProps) {
           {!isMobile && props.desktopImageSide === "left" && (
             <CardMedia
               component="img"
-              sx={{ width: isHuge ? 400 : 250 }}
+              sx={{ width: 300, height: 300 }}
               src={imageUrl(props.image)}
               alt={props.image}
             />
@@ -98,7 +98,7 @@ function CarouselItem(props: CarouselItemProps) {
           {!isMobile && props.desktopImageSide === "right" && (
             <CardMedia
               component="img"
-              sx={{ width: isHuge ? 400 : 250 }}
+              sx={{ width: 300, height: 300 }}
               src={imageUrl(props.image)}
               alt={props.image}
             />
