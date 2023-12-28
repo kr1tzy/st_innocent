@@ -20,10 +20,11 @@ passlib = {extras = ["bcrypt"], version = "*"}
 jose = "*"
 python-jose = "*"
 gunicorn = "*"
+pydantic-settings = "*"
 
 [dev-packages]
 pylint = "*"
 black = "*"
 
 [requires]
-python_version = "3.11.3"
+python_version = "3.11.6"

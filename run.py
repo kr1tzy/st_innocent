@@ -8,19 +8,19 @@ import uvicorn
 import argparse
 import threading
 import subprocess
-from server.config import settings
-from server.logger import CustomLogger, logger as server_logger
+from api.config import settings
+from api.logger import CustomLogger, logger as api_logger
 
 
-def client_dev():
+def ui_dev():
     """
-    Start the client application in dev mode.
+    Start the next.js ui application in dev mode.
     """
 
-    client_logger = CustomLogger.make_logger("client")
-    client_logger.info("Starting next.js client.")
+    ui_logger = CustomLogger.make_logger("ui")
+    ui_logger.info("Starting next.js ui.")
     with subprocess.Popen(
-        "cd client && yarn run dev",
+        "cd ui && yarn run dev",
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         encoding="utf-8",
@@ -35,17 +35,17 @@ def client_dev():
             sys.stdout.flush()
             sys.stderr.flush()
             if len(err) > 0:
-                client_logger.error(err)
+                ui_logger.error(err)
             elif len(out) > 0:
-                client_logger.info(out)
+                ui_logger.info(out)
 
 
 def admin_dev():
     """
-    Start the admin application in dev mode.
+    Start the vite admin application in dev mode.
     """
     admin_logger = CustomLogger.make_logger("admin")
-    admin_logger.info("Starting admin app.")
+    admin_logger.info("Starting vite admin app.")
     with subprocess.Popen(
         "cd admin && yarn run start",
         stdout=subprocess.PIPE,
@@ -67,15 +67,15 @@ def admin_dev():
                 admin_logger.info(out)
 
 
-def server_dev():
+def api_dev():
     """
-    Start the server in dev mode.
+    Start the api in dev mode.
     """
-    server_logger.info("Starting fastapi/uvicorn server.")
+    api_logger.info("Starting FastAPI/Uvicorn app.")
     uvicorn.run(
-        "server.main:app",
+        "api.main:app",
         host=settings.host,
-        port=int(settings.server_port),
+        port=int(settings.api_port),
         log_level="debug" if settings.mode == "dev" else "info",
         reload=True,
     )
@@ -84,24 +84,24 @@ def server_dev():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog="St. Innocent's Webapp",
-        description="FastAPI server / Next.js client / CRA Admin",
+        description="FastAPI api / Next.js ui / Vite Admin",
         epilog="run.py: command line utilities",
     )
     parser.add_argument("-b", "--build", action="store_true", help="production build")
-    parser.add_argument("-s", "--server", action="store_true", help="only uvicorn")
-    parser.add_argument("-a", "--admin", action="store_true", help="only cra admin")
+    parser.add_argument("-s", "--api", action="store_true", help="only fastapi/uvicorn")
+    parser.add_argument("-a", "--admin", action="store_true", help="only vite admin")
     parser.add_argument("-d", "--dev", action="store_true", help="development run")
     args = parser.parse_args()
 
     if args.dev:
         admin = threading.Thread(target=admin_dev, args=())
-        client = threading.Thread(target=client_dev, args=())
-        client.start()
+        ui = threading.Thread(target=ui_dev, args=())
+        ui.start()
         admin.start()
-        server_dev()
-    if args.server:
-        server_dev()
+        api_dev()
+    if args.api:
+        api_dev()
     if args.admin:
         admin_dev()
     else:
-        server_logger.info(f"{args} not supported.")
+        api_logger.info(f"{args} not supported.")

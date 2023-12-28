@@ -4,8 +4,8 @@
 
 import sys, asyncio
 from beanie import init_beanie
-from server.models import Content
-from server.database import connect_to_mongo
+from api.models import Content
+from api.database import connect_to_mongo
 
 
 async def main(arg):
@@ -16,7 +16,8 @@ async def main(arg):
     await init_beanie(database=db, document_models=[Content])
 
     if arg == "create":
-        content = Content(name="prayer", page="example", data=["Lord", "have", "mercy"])
+        # content = Content(name="prayer", page="example", data=["Lord", "have", "mercy"])
+        content = Content(name="title", page="example", data="Example")
         await content.insert()
         print(f"created: {content}")
     elif arg == "read":

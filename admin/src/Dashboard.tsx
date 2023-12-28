@@ -40,7 +40,7 @@ export default function Dashboard() {
       .then((json: any) => {
         let updatedInquiries: any[] = [];
         inquiries.forEach((inquiry: any) => {
-          if (inquiry["id"] !== json.data.id) {
+          if (inquiry["_id"] !== json.data._id) {
             updatedInquiries.push(inquiry);
           }
           setInquiries(updatedInquiries);
@@ -102,111 +102,54 @@ export default function Dashboard() {
   return (
     <Container
       sx={{
-        marginTop: "2.5%",
+        marginTop: isMobile ? "5%" : "1%",
         borderRadius: 2,
         p: 2,
       }}
     >
       <Title title="Dashboard" />
-      {isMobile ? (
-        <Grid container spacing={2} style={{ marginTop: "5%" }}>
-          <Grid
-            item
-            xs={12}
-            style={{
-              marginTop: "2.5%",
-              display: "flex",
-              flexDirection: "row",
-              alignContent: "center",
-              justifyContent: "space-around",
-              padding: "1.5%",
-            }}
-          >
-            <Analytic description={"Visits"} value={analytics.visits} />
-            <Analytic description={"Visitors"} value={analytics.unique} />
-            <Analytic
-              description={"Cities"}
-              value={analytics.cities.length | 0}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignContent: "center",
-              justifyContent: "space-around",
-              padding: "1.5%",
-            }}
-          >
-            <Analytic description={"States"} value={analytics.states.length} />
-            <Analytic
-              description={"Countries"}
-              value={analytics.countries.length}
-            />
-            <Analytic description={"Inquiries"} value={inquiriesTotal} />
-          </Grid>
-          <Grid item xs={12} lg={12}>
-            <Card
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignContent: "center",
-                justifyContent: "center",
-                padding: "2.5%",
-              }}
-            >
-              <InquiryTable
-                inquiries={inquiries}
-                handleFollowUp={handleInquiryFollowUp}
-              />
-            </Card>
-          </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={4}>
+          <Analytic description={"Visits"} value={analytics.visits} />
         </Grid>
-      ) : (
-        <Grid container spacing={2} style={{ marginTop: isTablet ? "5%" : "" }}>
-          <Grid
-            item
-            xs={12}
-            lg={12}
+        <Grid item xs={4}>
+          <Analytic description={"Visitors"} value={analytics.unique} />
+        </Grid>
+        <Grid item xs={4}>
+          <Analytic
+            description={"Cities"}
+            value={analytics.cities.length | 0}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <Analytic description={"States"} value={analytics.states.length} />
+        </Grid>
+        <Grid item xs={4}>
+          <Analytic
+            description={"Countries"}
+            value={analytics.countries.length}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <Analytic description={"Inquiries"} value={inquiriesTotal} />
+        </Grid>
+        <Grid item xs={12} lg={12}>
+          <Card
             style={{
               display: "flex",
-              flexDirection: "row",
+              flexDirection: "column",
               alignContent: "center",
-              justifyContent: "space-around",
-              padding: "1.5%",
-              fontSize: isTablet ? ".9em" : "",
+              justifyContent: "center",
+              padding: "2.5%",
             }}
           >
-            <Analytic description={"Visits"} value={analytics.visits} />
-            <Analytic description={"Visitors"} value={analytics.unique} />
-            <Analytic description={"Cities"} value={analytics.cities.length} />
-            <Analytic description={"States"} value={analytics.states.length} />
-            <Analytic
-              description={"Countries"}
-              value={analytics.countries.length}
+            <InquiryTable
+              inquiries={inquiries}
+              handleFollowUp={handleInquiryFollowUp}
             />
-            <Analytic description={"Inquiries"} value={inquiriesTotal} />
-          </Grid>
-          <Grid item xs={12} lg={12}>
-            <Card
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignContent: "center",
-                justifyContent: "center",
-                padding: "2.5%",
-              }}
-            >
-              <InquiryTable
-                inquiries={inquiries}
-                handleFollowUp={handleInquiryFollowUp}
-              />
-            </Card>
-          </Grid>
+          </Card>
         </Grid>
-      )}
+      </Grid>
     </Container>
   );
 }

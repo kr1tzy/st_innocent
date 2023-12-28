@@ -4,9 +4,9 @@
 
 import asyncio
 from beanie import init_beanie
-from server.models import Admin, Content, File, Inquiry, Visitor
-from server.database import connect_to_mongo
-from server.logger import logger
+from api.models import Admin, Content, File, Inquiry, Visitor
+from api.database import connect_to_mongo
+from api.logger import logger
 
 
 async def main():

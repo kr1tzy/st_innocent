@@ -101,5 +101,9 @@ const SideMenu = () => (
 );
 
 export default function Layout(props: any) {
-  return <AdminLayout {...props} appBar={AppBar} menu={SideMenu} />;
+  return (
+    <div style={{ marginTop: "2.5%" }}>
+      <AdminLayout {...props} appBar={AppBar} menu={SideMenu} />
+    </div>
+  );
 }

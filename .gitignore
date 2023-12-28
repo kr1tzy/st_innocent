@@ -145,6 +145,5 @@ cython_debug/
 .DS_Store
 
 # Project specific
-server/images/*
-server/pages/*
-server/logs/*
+api/logs/*
+snapshot/

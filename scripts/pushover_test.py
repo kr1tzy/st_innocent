@@ -4,9 +4,9 @@
 
 import sys, asyncio, requests
 from beanie import init_beanie
-from server.models import Admin
-from server.config import settings
-from server.database import connect_to_mongo
+from api.models import Admin
+from api.config import settings
+from api.database import connect_to_mongo
 
 
 async def send_message(text):

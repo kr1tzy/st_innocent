@@ -1,7 +1,7 @@
 import { stringify } from "query-string";
 
-//console.log("REACT_APP_BASE_URL: ", process.env.REACT_APP_BASE_URL);
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+console.log("VITE_BASE_URL: ", import.meta.env.VITE_BASE_URL);
 
 //
 // HTTP client
@@ -13,6 +13,8 @@ export const httpClient = async (url: string, options: any = {}) => {
 
   options.headers["Accept"] = "application/json";
   options.headers["Origin"] = window.location.origin;
+
+  //console.log(options.headers);
 
   const tokenString: string = localStorage.getItem("token") || "";
   if (tokenString.length > 0) {
@@ -47,14 +49,29 @@ export const dataProvider = {
     };
     const url = `${BASE_URL}/${resource}?${stringify(query)}`;
     return httpClient(url)
-      .then(({ json }) => json)
+      .then(({ json }) => {
+        return {
+          ...json,
+          data: json.data.map((resource: any) => ({
+            ...resource,
+            id: resource._id,
+          })),
+        };
+      })
       .catch((err) => err.body);
   },
-
   getOne: async (resource: string, params: any) => {
     const url = `${BASE_URL}/${resource}/${params.id}`;
     return httpClient(url)
-      .then(({ json }) => json)
+      .then(({ json }) => {
+        return {
+          ...json,
+          data: {
+            ...json.data,
+            id: json.data._id,
+          },
+        };
+      })
       .catch((err) => err.body);
   },
   getMany: async (resource: string, params: any) => {
@@ -63,7 +80,15 @@ export const dataProvider = {
     };
     const url = `${BASE_URL}/${resource}?${stringify(query)}`;
     return httpClient(url)
-      .then(({ json }) => json)
+      .then(({ json }) => {
+        return {
+          ...json,
+          data: json.data.map((resource: any) => ({
+            ...resource,
+            id: resource._id,
+          })),
+        };
+      })
       .catch((err) => err.body);
   },
 
@@ -79,7 +104,17 @@ export const dataProvider = {
       }),
     };
     const url = `${BASE_URL}/${resource}?${stringify(query)}`;
-    return httpClient(url).then(({ json }) => json);
+    return httpClient(url)
+      .then(({ json }) => {
+        return {
+          ...json,
+          data: json.data.map((resource: any) => ({
+            ...resource,
+            id: resource._id,
+          })),
+        };
+      })
+      .catch((err) => err.body);
   },
 
   update: async (resource: string, params: any) => {
@@ -87,7 +122,17 @@ export const dataProvider = {
     return httpClient(url, {
       method: "PUT",
       body: JSON.stringify(params.data),
-    }).then(({ json }) => json);
+    })
+      .then(({ json }) => {
+        return {
+          ...json,
+          data: {
+            ...json.data,
+            id: json.data._id,
+          },
+        };
+      })
+      .catch((err) => err.body);
   },
 
   updateMany: async (resource: string, params: any) => {
@@ -98,7 +143,17 @@ export const dataProvider = {
     return httpClient(url, {
       method: "PUT",
       body: JSON.stringify(params.data),
-    }).then(({ json }) => json);
+    })
+      .then(({ json }) => {
+        return {
+          ...json,
+          data: json.data.map((resource: any) => ({
+            ...resource,
+            id: resource._id,
+          })),
+        };
+      })
+      .catch((err) => err.body);
   },
 
   create: async (resource: string, params: any) => {
@@ -106,14 +161,34 @@ export const dataProvider = {
     return httpClient(url, {
       method: "POST",
       body: JSON.stringify(params.data),
-    }).then(({ json }) => json);
+    })
+      .then(({ json }) => {
+        return {
+          ...json,
+          data: {
+            ...json.data,
+            id: json.data._id,
+          },
+        };
+      })
+      .catch((err) => err.body);
   },
 
   delete: async (resource: string, params: any) => {
     const url = `${BASE_URL}/${resource}/${params.id}`;
     return httpClient(url, {
       method: "DELETE",
-    }).then(({ json }) => json);
+    })
+      .then(({ json }) => {
+        return {
+          ...json,
+          data: {
+            ...json.data,
+            id: json.data._id,
+          },
+        };
+      })
+      .catch((err) => err.body);
   },
 
   deleteMany: async (resource: string, params: any) => {
@@ -125,7 +200,17 @@ export const dataProvider = {
     const url = `${BASE_URL}/${resource}?${query}`;
     return httpClient(url, {
       method: "DELETE",
-    }).then(({ json }) => json);
+    })
+      .then(({ json }) => {
+        return {
+          ...json,
+          data: json.data.map((resource: any) => ({
+            ...resource,
+            id: resource._id,
+          })),
+        };
+      })
+      .catch((err) => err.body);
   },
   uploadImage: async (image: File) => {
     const url = `${BASE_URL}/images/upload`;

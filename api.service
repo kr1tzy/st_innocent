@@ -1,14 +1,14 @@
 [Unit]
-Description=Gunicorn instance to serve St. Innocent's FastAPI application
+Description=Gunicorn instance to serve St. Innocent's API
 After=network.target
 
 [Service]
 User=root
 Group=www-data
 WorkingDirectory=/root/Playground/st_innocent
-Environment="PATH=/root/Playground/.venv/bin"
+Environment="PATH=/root/Playground/st_innocent/.venv/bin"
 EnvironmentFile=/root/Playground/st_innocent/.env
-ExecStart=/root/Playground/st_innocent/.venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:9000 server.main:app
+ExecStart=/root/Playground/st_innocent/.venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:1111 api.main:app
 
 [Install]
 WantedBy=multi-user.target

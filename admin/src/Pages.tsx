@@ -6,6 +6,7 @@ import {
   SimpleForm,
   TextField,
   TextInput,
+  BooleanInput,
   useGetRecordId,
   SaveButton,
   Toolbar,
@@ -96,16 +97,23 @@ export const PageEdit = () => {
     case "index":
       PageForm = (
         <SimpleForm toolbar={<PageEditToolbar />}>
+          <h1>Landing Page</h1>
           <TextInput disabled source="id" />
+          <h2>Title</h2>
           <TextInput source="title" />
+          <h2>Navigation</h2>
+          <TextInput source="support_link" fullWidth />
+          <h2>Hero</h2>
           <SelectInput
             source="hero_bg"
             choices={images}
             label="Hero background"
           />
           <SelectInput source="hero_svg" choices={svgs} />
+          <h2>Welcome</h2>
           <SelectInput source="welcome_svg" choices={svgs} />
           <TextInput source="welcome_text" fullWidth />
+          <h3>Upcoming Events</h3>
           <TextInput
             source="produce_dist"
             fullWidth
@@ -116,6 +124,7 @@ export const PageEdit = () => {
             fullWidth
             label="Next community meal"
           />
+          <h2>FAQs</h2>
           <SelectInput
             source="faqs_bg"
             choices={images}
@@ -127,6 +136,7 @@ export const PageEdit = () => {
               <TextInput source="answer" fullWidth multiline />
             </SimpleFormIterator>
           </ArrayInput>
+          <h2>Parish Life</h2>
           <ArrayInput source="parish_life_items">
             <SimpleFormIterator fullWidth inline>
               <TextInput source="title" />
@@ -134,12 +144,14 @@ export const PageEdit = () => {
               <TextInput source="text" multiline fullWidth />
             </SimpleFormIterator>
           </ArrayInput>
+          <h2>Calendar</h2>
           <SelectInput
             source="calendar_bg"
             choices={images}
             label="Calendar background"
           />
           <TextInput source="calendar_add_link" fullWidth />
+          <h2>Who We Are</h2>
           <ArrayInput source="who_we_are_items">
             <SimpleFormIterator fullWidth inline>
               <TextInput source="title" />
@@ -147,12 +159,12 @@ export const PageEdit = () => {
               <TextInput source="text" multiline fullWidth />
             </SimpleFormIterator>
           </ArrayInput>
-          <TextInput source="support_link" fullWidth />
+          <h2>Footer</h2>
           <TextInput source="address" fullWidth />
           <TextInput source="email" fullWidth />
           <TextInput source="phone" fullWidth />
           <TextInput source="facebook" fullWidth />
-          <SelectInput source="footer_svg" choices={svgs} />
+          <SelectInput source="footer_img" choices={[...svgs, ...images]} />
         </SimpleForm>
       );
       break;

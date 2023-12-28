@@ -18,16 +18,22 @@ export default function Analytic(props: {
       <Card>
         <CardContent>
           <Typography
-            variant={isMobile ? "h5" : "h5"}
+            variant={"h5"}
             id="site-visits"
             style={{
-              fontSize: isMobile ? ".9em" : "",
-              fontWeight: isMobile ? "bold" : "",
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              fontSize: isMobile ? ".9rem" : "1.1rem",
             }}
           >
-            {props.description}:{" "}
+            {props.description}:
             <span
-              style={{ fontWeight: "bold", color: theme.palette.primary.main }}
+              style={{
+                fontWeight: "bold",
+                color: theme.palette.primary.main,
+                marginLeft: "5%",
+              }}
             >
               {props.value}
             </span>

@@ -4,9 +4,9 @@
 
 import asyncio
 from beanie import init_beanie
-from server.models import Admin
-from server.database import connect_to_mongo
-from server.auth import get_password_hash
+from api.models import Admin
+from api.database import connect_to_mongo
+from api.auth import get_password_hash
 
 
 async def main():

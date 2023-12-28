@@ -45,6 +45,7 @@ export default function Login() {
             alignItems: "center",
           }}
         >
+          <img style={{ width: "80%", marginBottom: "0" }} src={`logo.svg`} />
           <Typography component="h1" variant="h5">
             St. Innocent's Admin
           </Typography>

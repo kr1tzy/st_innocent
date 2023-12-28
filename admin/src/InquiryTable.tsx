@@ -42,7 +42,7 @@ let mobileColumns: readonly Column[] = [
 ];
 
 interface Inquiry {
-  id: string;
+  _id: string;
   when: string;
   data: {
     name: string;
@@ -65,7 +65,7 @@ interface Data {
 
 function createData(inquiry: Inquiry): Data {
   return {
-    id: inquiry.id,
+    id: inquiry._id,
     when: inquiry.when,
     name: inquiry.data.name,
     email: inquiry.data.email,
