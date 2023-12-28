@@ -144,6 +144,9 @@ cython_debug/
 # Apple
 .DS_Store
 
+# Swap
+.*.swp
+
 # Project specific
 api/logs/*
 snapshot/
