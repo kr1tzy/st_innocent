@@ -1,5 +1,5 @@
 import App, { AppContext, AppInitialProps, AppProps } from "next/app";
-import { NextResponse } from "next/api";
+import { NextResponse } from "next/server";
 import {
   createTheme,
   ThemeProvider,
