@@ -30,10 +30,10 @@ Vite application for updating the ui's content, managing inquiries, viewing anal
     * `systemctl restart api`
 * get the ui/admin setup
     * `yarn build # ui also builds in cloud`
-    * `scp -r .next root@ST_INNOCENTS_CLOUD:/root/Playground/st_innocent/ui/`
+    * `scp -r .next root@$ST_INNOCENTS_CLOUD:/root/Playground/st_innocent/ui/`
     * `rm -rf /var/www/ui/* && cp -r /root/Playground/st_innocent/ui/.next/* /var/www/ui`
     * `rm -rf /var/www/admin/*`
-    * `scp -r build/* root@ST_INNOCENTS_CLOUD:/var/www/admin/`
+    * `scp -r build/* root@$ST_INNOCENTS_CLOUD:/var/www/admin/`
 * restart the ui & nginx
     * `pm2 restart 0`
     * `systemctl restart nginx`
