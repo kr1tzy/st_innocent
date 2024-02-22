@@ -71,7 +71,6 @@ export default function Home(props: IndexPage) {
       <Head>
         <title>{props.title}</title>
       </Head>
-
       <Navbar support={props.support_link} />
       <HeroSection
         backgroundImage={props.hero_bg}

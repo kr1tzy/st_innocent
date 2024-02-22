@@ -1,5 +1,9 @@
 import { useTheme, Box, Grid, Typography, Button } from "@mui/material";
 import { imageUrl } from "@/utils";
+import dynamic from "next/dynamic";
+const ReactPlayer = dynamic(() => import("react-player"), {
+  ssr: false,
+});
 
 //
 // Upcoming Event Box
@@ -73,7 +77,7 @@ export default function WelcomeSection(props: WelcomeSectionProps) {
         <Grid item xs={12} sm={8}>
           <Box
             sx={{
-              padding: "7.5%",
+              padding: "5%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -116,6 +120,22 @@ export default function WelcomeSection(props: WelcomeSectionProps) {
                 </Grid>
               </Grid>
             </Box>
+          </Box>
+          <Box
+            sx={{
+              backgroundColor: theme.palette.primary.main,
+              padding: "2.5%",
+            }}
+          >
+            <div className="player-wrapper">
+              <ReactPlayer
+                className="react-player"
+                url="https://youtu.be/Jh5nuQxiS30"
+                controls={"true"}
+                height="100%"
+                width="100%"
+              />
+            </div>
           </Box>
         </Grid>
         <Grid item xs={0} sm={2} />
