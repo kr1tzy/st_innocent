@@ -131,7 +131,7 @@ export default function WelcomeSection(props: WelcomeSectionProps) {
               <ReactPlayer
                 className="react-player"
                 url="https://youtu.be/Jh5nuQxiS30"
-                controls={"true"}
+                controls={true}
                 height="100%"
                 width="100%"
               />
