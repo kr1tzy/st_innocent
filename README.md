@@ -1,6 +1,6 @@
 # St. Innocent
 
-> PREDATOR Stack: fastaPi React nExtjs mongoDb beAnie pyThOn typescRipt
+> PREDATOR: fastaPi React nExtjs mongoDb beAnie pyThOn typescRipt
 
 ## Applications 
 
@@ -29,21 +29,23 @@ Vite application for updating the ui's content, managing inquiries, viewing anal
 * restart the api
     * `systemctl restart api`
 * get the ui/admin setup
-    * `yarn build # ui also builds in cloud`
-    * `scp -r .next root@$ST_INNOCENTS_CLOUD:/root/Playground/st_innocent/ui/`
-    * `rm -rf /var/www/ui/* && cp -r /root/Playground/st_innocent/ui/.next/* /var/www/ui`
-    * `rm -rf /var/www/admin/*`
+    * `yarn build # in admin/ and ui/`
+    * ssh:
+        * `rm -rf /var/www/ui/* && rm -rf /var/www/admin/*`
     * `scp -r build/* root@$ST_INNOCENTS_CLOUD:/var/www/admin/`
+    * `scp logo.svg root@$ST_INNOCENTS_CLOUD:/var/www/admin/`
+    * `scp -r .next root@$ST_INNOCENTS_CLOUD:/root/Playground/st_innocent/ui/`
+    * ssh:
+        * `cp -r /root/Playground/st_innocent/ui/.next/* /var/www/ui`
+        * `chmod -R 755 /var/www/admin && chmod -R 755 /var/www/ui`
 * restart the ui & nginx
     * `pm2 restart 0`
     * `systemctl restart nginx`
 * to start next.js from scratch (from inside ui/)
     * `yarn && pm2 start yarn --name ui -- run start`
-* to start api service on start 
-    * `systemctl enable api`
 * to start pm2 on start 
     * `pm2 save`
-    * `systemctl enable api`
+    * `systemctl enable api # to start api service on start`
 
 ---
 
@@ -62,7 +64,7 @@ Vite application for updating the ui's content, managing inquiries, viewing anal
 - nvm
     - `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash`
 
-### Python w/ pyenv
+### python w/ pyenv
 
 - install dependencies for ubuntu version
     - `pyenv update`
@@ -83,13 +85,17 @@ Vite application for updating the ui's content, managing inquiries, viewing anal
 - nvm install <version>
 - npm install --global yarn
 
+#### pm2 
+
+- yarn global add pm2
+
 ### systemd service
 
 - (make sure venv is built with packages installed)
 - cp api.service /etc/systemd/system/
 - systemctl restart api
 
-## nginx w/ certbot
+### nginx & certbot
 
 > don't do too quick! only 5 chances with certbot before an hour delay
 
@@ -98,20 +104,3 @@ Vite application for updating the ui's content, managing inquiries, viewing anal
 - nginx -t # test it
 - systemctl restart nginx
 - certbot --nginx
-
-## build the admin and ui app
-
-> Prod API must be running and accessible!
-
-- ui:
-    - `yarn build`
-    - `cp -r .next/* /var/www/ui/`
-- admin:
-    - `yarn build`
-    - `cp -r build/* /var/www/admin/`
-
-update modes: `chmod -R 755 /var/www/admin && chmod -R 755 /var/www/ui`
-
-#### pm2 
-
-- yarn global add pm2
