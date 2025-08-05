@@ -1,9 +1,9 @@
 import { useTheme, Box, Grid, Typography, Button } from "@mui/material";
 import { imageUrl } from "@/utils";
-import dynamic from "next/dynamic";
-const ReactPlayer = dynamic(() => import("react-player"), {
-  ssr: false,
-});
+// import dynamic from "next/dynamic";
+// const ReactPlayer = dynamic(() => import("react-player"), {
+//   ssr: false,
+// });
 
 //
 // Upcoming Event Box
@@ -121,7 +121,7 @@ export default function WelcomeSection(props: WelcomeSectionProps) {
               </Grid>
             </Box>
           </Box>
-          <Box
+          {/* <Box
             sx={{
               backgroundColor: theme.palette.primary.main,
               padding: "2.5%",
@@ -136,7 +136,7 @@ export default function WelcomeSection(props: WelcomeSectionProps) {
                 width="100%"
               />
             </div>
-          </Box>
+          </Box> */}
         </Grid>
         <Grid item xs={0} sm={2} />
       </Grid>
