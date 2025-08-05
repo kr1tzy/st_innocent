@@ -47,7 +47,7 @@ export default function Navbar(props: NavbarProps) {
     { title: "Parish Life", link: "#parish-life" },
     { title: "Calendar", link: "#calendar" },
     { title: "Who We Are", link: "#who-we-are" },
-    { title: "Connect", link: "connect" },
+    // { title: "Connect", link: "connect" },
     { title: "Support", link: props.support },
   ];
 
